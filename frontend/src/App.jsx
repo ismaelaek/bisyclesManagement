@@ -1,11 +1,18 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './components/home'
+import Login from './components/Auth/login'
 import './App.css'
 
 function App() {
 
   return (
-    <div className='container border-2 border-black p-3 w-full'>
-      <h1 className='text-red-800 text-3xl'>Hello React + Vite + TailwindCSS </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

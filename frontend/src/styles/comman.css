@@ -1,0 +1,16 @@
+:root {
+    /* Main colors */
+    --main-color: #393E41;
+    --second-color: #D3D0CB;
+    --bg-color: #FFFAFF;
+    --third-color: #E2C044;
+    --fourth-color: #587B7F;
+    --fifth-color: #1E2019;
+
+    /* Dark mode colors */
+    --main-color-dark: #CCCCCC; 
+    --second-color-dark: #AAAAAA; 
+    --bg-color-dark: #333333; 
+    --third-color-dark: #FF0000; 
+    --fourth-color-dark: #000000; 
+}
