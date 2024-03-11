@@ -20,7 +20,11 @@ export default Dashboard;
 
 const DashContent = () => {
     const content = useSelector(state => state.dashboard);
-    return (
-        <h1>{ content }</h1>
-    )
+    switch (content) {
+        case 'dashboard':
+            return <h1>DashBoard</h1>;
+            break;
+        default:
+            break;
+    }
 }
