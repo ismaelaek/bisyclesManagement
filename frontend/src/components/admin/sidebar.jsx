@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setActivePage } from '@/storage/dashboardSlice';
 import { MdOutlineDirectionsBike } from "react-icons/md";
+import Logo from '../../assets/PedalPlex.svg';
 import {
     AppstoreOutlined,
     UserOutlined,
@@ -31,7 +32,7 @@ const items = [
         getItem('All User', 'usersList', <UserOutlined />),
         getItem('Delete User', 'deleteUser',<UserDeleteOutlined /> ),
     ] ,'group'),
-    getItem('Other', 'users', null ,[
+    getItem('Other', 'other', null ,[
         getItem('FeedBacks', 'feedback', <MailOutlined />),
         getItem('Navigation Two', 'sub2', <AppstoreOutlined />)
     ] ,'group'),
@@ -55,12 +56,12 @@ const AdminSidebar = () => {
         };
     }, []);
     return (
-        <div className=' w-50' >
+        <div className='side-bar w-auto' >
             <div className='logo w-full h-10'>
-                    <h1>Logo</h1>
+                    <p>PedalPlex</p>
             </div>
                 <Menu
-                    className='text-left'
+                    className='text-left h-full pt-4 rounded-lg'
                     defaultSelectedKeys={['dashboard']}
                     mode="inline"
                     theme="light"
