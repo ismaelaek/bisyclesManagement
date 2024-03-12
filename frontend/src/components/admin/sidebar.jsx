@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setActivePage } from '@/storage/dashboardSlice';
 import { MdOutlineDirectionsBike } from "react-icons/md";
-import Logo from '../../assets/PedalPlex.svg';
+
+
 import {
     AppstoreOutlined,
     UserOutlined,
@@ -34,12 +35,13 @@ const items = [
     ] ,'group'),
     getItem('Other', 'other', null ,[
         getItem('FeedBacks', 'feedback', <MailOutlined />),
-        getItem('Navigation Two', 'sub2', <AppstoreOutlined />)
+        getItem('More', 'more', <AppstoreOutlined />)
     ] ,'group'),
 ];
 const AdminSidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const dispatch = useDispatch();
+    const theme = useSelector(state => state.theme)
     const handleMenuItemClick = (e) => {
         console.log('onSelect :', e.key);
         dispatch(setActivePage(e.key));
@@ -57,14 +59,14 @@ const AdminSidebar = () => {
     }, []);
     return (
         <div className='side-bar w-auto' >
-            <div className='logo w-full h-10'>
-                    <p>PedalPlex</p>
+            <div className={`logo w-full h-10 rounded-br-lg`} >
+                <p className={theme === 'dark' ? 'text-white' : ''}>PedalPlex</p>
             </div>
                 <Menu
-                    className='text-left h-full pt-4 rounded-lg'
+                    className='text-left h-full pt-4 rounded-tr-lg'
                     defaultSelectedKeys={['dashboard']}
                     mode="inline"
-                    theme="light"
+                    theme={theme}
                     inlineCollapsed={collapsed}
                     items={items}
                     onSelect={handleMenuItemClick}

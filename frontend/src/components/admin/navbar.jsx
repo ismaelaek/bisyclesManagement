@@ -1,56 +1,49 @@
 import React from 'react'
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, message, Space, Tooltip } from 'antd';
+import {useDispatch, useSelector } from 'react-redux'
+import { toggleTheme } from '@/storage/themeSlice';
+import { DownOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Dropdown, message, Space, Switch } from 'antd';
+import { LuMoon, LuSun } from "react-icons/lu";
+
+
 
 const AdminNavbar = () => {
-    const handleButtonClick = (e) => {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-    };
+    const dispatch = useDispatch()
+    const theme= useSelector(state => state.theme)
     const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
+        message.info(`Click on menu item. ${e.key}`);
     };
     const items = [
-    {
-        label: '1st menu item',
-        key: '1',
-        icon: <UserOutlined />,
-    },
-    {
-        label: '2nd menu item',
-        key: '2',
-        icon: <UserOutlined />,
-    },
-    {
-        label: '3rd menu item',
-        key: '3',
-        icon: <UserOutlined />,
-        danger: true,
-    },
-    {
-        label: '4rd menu item',
-        key: '4',
-        icon: <UserOutlined />,
-        danger: true,
-        disabled: true,
-    },
+        {
+            label: 'Log Out',
+            key: '1',
+            icon: <LogoutOutlined />,
+        },
     ];
     const menuProps = {
     items,
     onClick: handleMenuClick,
     };
+    const onChange = () => {
+        dispatch(toggleTheme())
+    }
     return (
-        <nav className=' admin-nav h-10 w-full ml-3 rounded-lg'>
+        <nav
+            className={`admin-nav h-10 ml-3 rounded-bl-lg rounded-br-lg text-2xl 
+            ${theme === 'dark' ? 'dark-theme bg-customDark' : ''}}`}
+        >
             <h1>Dashboard</h1>
-            <div>
+            <div className=' flex justify-between gap-20'>
+                <div className=' flex justify-between gap-1'>
+                    <LuSun/>
+                    <Switch checked={theme==='dark'} onChange={onChange} className=' bg-gray-300' />
+                    <LuMoon/>
+                </div>
                 <Dropdown menu={menuProps}>
-                    <Button>
-                        <Space>
-                            Button
-                            <DownOutlined />
-                        </Space>
-                    </Button>
+                    <Space className=' cursor-pointer text-lg'>
+                        <p>John Doe</p>
+                        <DownOutlined />
+                    </Space>
                 </Dropdown>
             </div>
         </nav>

@@ -1,9 +1,7 @@
 @import url('./comman.css');
 @import url('https://fonts.cdnfonts.com/css/bite-chocolate');
-*{
-    box-sizing: border-box;
-}
 .dashboard-main{
+    width: 100%;
     display: grid;
     grid-template-columns: 20% 80%;
     background-color: var(--bg-color);
@@ -18,7 +16,29 @@
 }
 .admin-nav{
     background-color: white;
+    padding: 0 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+.darkTheme{
+    background-color: #305272;
+}
+.statistics{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.statistics div{
+    width: 100px;
+    height: 80px;
+    background-color: aqua;
+}
+
+.dark-theme{
+    background-color: #001529;
+    h1,h2,h3,h4,h5,p,svg{
+        color: #a4abb2;
+    }
+}
+
