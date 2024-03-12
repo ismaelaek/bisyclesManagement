@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bikes', function (Blueprint $table) {
+            $table->engine = 'innodb';
             $table->id();
+            $table->string('type');
+            $table->string('image');
+            $table->string('size');
+            $table->string('material');
+            $table->boolean('availablity');
+            $table->decimal('price_per_hour', 10, 2);
             $table->timestamps();
         });
     }
