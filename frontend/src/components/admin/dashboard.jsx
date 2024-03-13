@@ -30,7 +30,6 @@ const DashContent = () => {
             return <div className={`flex w-full h-80 justify-center items-center  rounded-lg ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`} >
                 <Statistics/>
             </div>;
-            break;
         default:
             break;
     }

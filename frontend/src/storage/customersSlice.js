@@ -3,38 +3,38 @@ import axios from 'axios';
 import { getEndpoint } from './api';
 
 const initialState = {
-    bikes: [],
+    customers: [],
     isLoading: false,
     error: null
 };
 
-export const fetchBikeData = createAsyncThunk('bike/fetchBikeData', async () => {
+export const fetchCostumers = createAsyncThunk('bike/fetchCostumers', async () => {
     try {
-        const response = await axios.get(getEndpoint('bikes'));
+        const response = await axios.get(getEndpoint('customers'));
         return response.data;
     } catch (error) {
         throw new Error(error.message);
     }
 });
 
-const bikeSlice = createSlice({
-    name: 'bikes',
+const customerSlice = createSlice({
+    name: 'customers',
     initialState,
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(fetchBikeData.pending, state => {
+            .addCase(fetchCostumers.pending, state => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(fetchBikeData.fulfilled, (state, action) => {
+            .addCase(fetchCostumers.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.bikes = action.payload;
+                state.customers = action.payload;
             })
-            .addCase(fetchBikeData.rejected, (state, action) => {
+            .addCase(fetchCostumers.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
             });
     }
 });
-export default bikeSlice.reducer;
+export default customerSlice.reducer;

@@ -29,14 +29,14 @@ const AdminNavbar = () => {
     }
     return (
         <nav
-            className={`admin-nav h-10 ml-3 rounded-bl-lg rounded-br-lg text-2xl 
+            className={`admin-nav h-10 ml-3 rounded-bl-lg text-2xl 
             ${theme === 'dark' ? 'dark-theme bg-customDark' : ''}}`}
         >
             <h1>Dashboard</h1>
             <div className=' flex justify-between gap-20'>
-                <div className=' flex justify-between gap-1'>
+                <div className=' flex justify-between items-center gap-1 text-lg'>
                     <LuSun/>
-                    <Switch checked={theme==='dark'} onChange={onChange} className=' bg-gray-300' />
+                    <Switch checked={theme==='dark'} onChange={onChange} size='small' className=' bg-gray-300' />
                     <LuMoon/>
                 </div>
                 <Dropdown menu={menuProps}>

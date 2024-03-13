@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchCostumers } from '@/storage/customersSlice';
 import { fetchBikeData } from '../storage/bikesSlice';
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { bikesData, isLoading, error } = useSelector(state => state.bikes);
+    const { customers, isLoading, error } = useSelector(state => state.customers);
 
     useEffect(() => {
-        dispatch(fetchBikeData());
+        dispatch(fetchCostumers());
     }, [dispatch]);
 
     return (
@@ -15,9 +16,9 @@ export default function Home() {
             <h1 className='text-4xl'>Home page</h1>
             {isLoading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
-            {bikesData.length !== 0 && (
+            {customers.length !== 0 && (
                 <ul>
-                    {bikesData.map((item) => (
+                    {customers.map((item) => (
                         <li key={item.id}>{item.name}</li>
                     ))}
                 </ul>

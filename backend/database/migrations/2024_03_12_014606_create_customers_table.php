@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('phone_number');
             $table->string('address');
             $table->string('password');
+            $table->string('role');
             $table->timestamps();
         });
     }

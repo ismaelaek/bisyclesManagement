@@ -11,10 +11,13 @@ class Customer extends Model
     {
         return $this->hasMany(Rental::class);
     }
-    protected $fillable = ['name',
-    'email',
-    'address',
-    'phone_number',
-    'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'phone_number',
+        'role',
+        'password'
+    ];
     use HasFactory;
 }

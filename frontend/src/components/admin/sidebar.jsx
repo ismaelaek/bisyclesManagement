@@ -23,7 +23,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 const items = [
-    getItem('Dashboard', 'dashboard', <PieChartOutlined />),
+    getItem('Statistics', 'dashboard', <PieChartOutlined />),
     getItem('Bikes', 'bikes', null ,[
         getItem('All Bikes', 'bikesList', <MdOutlineDirectionsBike />),
         getItem('Add Bike', 'addBike',<PlusCircleOutlined /> ),
@@ -58,12 +58,12 @@ const AdminSidebar = () => {
         };
     }, []);
     return (
-        <div className='side-bar w-auto' >
-            <div className={`logo w-full h-10 rounded-br-lg`} >
+        <div className='side-bar w-auto h-full' >
+            <div className={`logo w-full pt-3 pb-5 rounded-br-lg`} >
                 <p className={theme === 'dark' ? 'text-white' : ''}>PedalPlex</p>
             </div>
                 <Menu
-                    className='text-left h-full pt-4 rounded-tr-lg'
+                    className='side-menu text-left pt-4 h-fi rounded-tr-lg'
                     defaultSelectedKeys={['dashboard']}
                     mode="inline"
                     theme={theme}
