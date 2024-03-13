@@ -4,6 +4,7 @@ import AdminSidebar from './sidebar';
 import { useSelector } from 'react-redux'
 import Statistics from './statistics';
 import "../../styles/dashboard.css"
+import CustomersList from './customersList';
 
 const Dashboard = () => {
     const theme = useSelector(state => state.theme);
@@ -12,8 +13,10 @@ const Dashboard = () => {
             <AdminSidebar />
             <div>
                 <AdminNavbar />
-                <div className=' p-4'>
-                    <DashContent/>
+                <div className='dash-content p-4'>
+                    <div className={`h-full flex w-full justify-center rounded-lg ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`} >
+                        <DashContent/>
+                    </div>
                 </div>
             </div>
         </main>
@@ -27,9 +30,11 @@ const DashContent = () => {
     const theme = useSelector(state => state.theme);
     switch (content) {
         case 'dashboard':
-            return <div className={`flex w-full h-80 justify-center items-center  rounded-lg ${theme === 'dark' ? 'bg-customDark' : 'bg-white'}`} >
-                <Statistics/>
-            </div>;
+            return <Statistics />;
+        case 'bikesList':
+            return null;
+        case 'usersList':
+            return <CustomersList/>;
         default:
             break;
     }
