@@ -3,8 +3,10 @@ import AdminNavbar from './navbar';
 import AdminSidebar from './sidebar';
 import { useSelector } from 'react-redux'
 import Statistics from './statistics';
-import "../../styles/dashboard.css"
 import CustomersList from './customersList';
+import Feedbacks from './feedback';
+import "../../styles/dashboard.css"
+import BikesList from './bikesList';
 
 const Dashboard = () => {
     const theme = useSelector(state => state.theme);
@@ -32,9 +34,11 @@ const DashContent = () => {
         case 'dashboard':
             return <Statistics />;
         case 'bikesList':
-            return null;
+            return <BikesList/>;
         case 'usersList':
             return <CustomersList/>;
+        case 'feedback':
+            return <Feedbacks />;
         default:
             break;
     }

@@ -54,11 +54,29 @@
 .dash-content{
     height: calc(100% - 2.5rem);
 }
+.customers-list {
+    height: 450px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.customers-list::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
+}
+.customers-list tr {
+    border-bottom: rgb(209,213,219) solid 1px;
+}
+.customers-list tr>td{
+    padding: 8px 4px ;
+    text-wrap: wrap;
+}
 
 .dark-theme{
     background-color: #001529;
     h1,h2,h3,h4,h5,p,svg{
-        color: #a4abb2;
+        color: rgb(209,213,219);
     }
 }
 
