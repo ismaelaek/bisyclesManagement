@@ -11,23 +11,24 @@ const CustomersList = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredCustomers, setFilteredCustomers] = useState([]);
     const { customers, isLoading, error } = useSelector(state => state.customers);
-    const nonAdminCustomers = customers.filter(item => !item.is_admin);
     const theme = useSelector(state => state.theme);
 
     useEffect(() => {
         dispatch(fetchCostumers());
-    }, [dispatch])
+    }, [dispatch]);
+
     useEffect(() => {
-        if (nonAdminCustomers.length > 0) {
-            const filtered = nonAdminCustomers.filter(item =>
-                item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        if (customers.length > 0) {
+            const filtered = customers.filter(item =>
+                !item.is_admin &&
+                (item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.phone_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.address.toLowerCase().includes(searchTerm.toLowerCase())
+                item.address.toLowerCase().includes(searchTerm.toLowerCase()))
             );
             setFilteredCustomers(filtered);
         }
-    }, [nonAdminCustomers, searchTerm]);
+    }, [customers, searchTerm]);
     if (isLoading) {
         return <Loader />
     } else {
@@ -64,7 +65,7 @@ const CustomersList = () => {
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Adress</th>
+                                        <th>Address</th>
                                         <th>Joined At</th>
                                     </tr>
                                 }

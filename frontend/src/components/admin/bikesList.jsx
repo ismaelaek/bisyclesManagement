@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBikeData } from '@/storage/bikesSlice';
-import { Select } from 'antd';
+import { Select, Modal } from 'antd';
 import { Input } from 'antd';
 import Loader from '../loader';
 import NoData from './noData';
@@ -11,13 +11,22 @@ const BikesList = () => {
     const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredBikes, setFilteredBikes] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
+
+    const handleImageClick = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setModalVisible(true);
+    };
     const { bikes, isLoading, error } = useSelector(state => state.bikes);
     const theme = useSelector(state => state.theme);
-    let colorOpacity;
+    let green, red ;
     if (theme === 'dark') {
-        colorOpacity = '300';
+        green = 'text-green-300';
+        red = 'text-red-300';
     } else {
-        colorOpacity = '500';
+        green = 'text-green-600';
+        red = 'text-red-600';
     }
 
     useEffect(() => {
@@ -53,9 +62,6 @@ const BikesList = () => {
                                     value={searchTerm}
                                     onChange={e => { setSearchTerm(e.target.value); console.log(e.target.value)}}
                                 />
-                                <div>
-                                    <Filter list={['M', 'L', 'XS']}/>
-                                </div>
                             </div>
                             <div className='customers-list '>
                                 <table
@@ -78,19 +84,42 @@ const BikesList = () => {
                                     </tr>
                                 }
                                 {filteredBikes.map((item) => {
-                                    return <tr>
-                                        <td>Image Here</td>
+                                    return <tr key={item.id}>
+                                        <td className=' p-0  h-24 w-16 '>
+                                            <div className=' h-full flex items-center overflow-hidden rounded-xl '>
+                                                <img 
+                                                    className=' h-full cursor-pointer' 
+                                                    src={`http://localhost:8000/storage/images/bikes/${item.image}`} 
+                                                    alt="" 
+                                                    onClick={() => handleImageClick(`http://localhost:8000/storage/images/bikes/${item.image}`)}
+                                                />
+                                            </div>
+                                        </td>
                                         <td>{item.type}</td>
                                         <td>{item.size}</td>
                                         <td>{item.material}</td>
-                                        {item.availability ? <td className={`text-green-${colorOpacity}`}>
+                                        {item.availability ? <td className={green}>
                                             Available
-                                        </td> : <td className={`text-red-${colorOpacity}`}>
+                                        </td> : <td className={red}>
                                                 Went Out
                                         </td> }
                                     </tr>
                                 })}
-                            </table>
+                                </table>
+                                <Modal
+                                    visible={modalVisible}
+                                    onCancel={() => setModalVisible(false)}
+                                    footer={null}
+                                    className=''
+                                    
+                                >
+                                    <img 
+                                        src={selectedImage} 
+                                        className=' rounded-lg'
+                                        alt="Large" 
+                                        style={{width: '100%', maxHeight: '70vh', objectFit: 'contain'}}
+                                    />
+                                </Modal>
                             </div>
                     </div>
                 )}
@@ -100,31 +129,3 @@ const BikesList = () => {
 };
 export default BikesList;
 
-
-const Filter = ({ list }) => {
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    }
-    return (
-        <Select
-            size='small'
-            defaultValue="Size"
-            style={{width: 60}}
-            onChange={handleChange}
-            options={[
-                {
-                value: list[0],
-                label: list[0]
-                },
-                {
-                value: list[1],
-                label: list[1]
-                },
-                {
-                value: list[2],
-                label: list[2]
-                }
-            ]}
-        />
-    )
-};

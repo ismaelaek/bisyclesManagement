@@ -7,6 +7,7 @@ import CustomersList from './customersList';
 import Feedbacks from './feedback';
 import "../../styles/dashboard.css"
 import BikesList from './bikesList';
+import AddBike from './addBike';
 
 const Dashboard = () => {
     const theme = useSelector(state => state.theme);
@@ -35,6 +36,8 @@ const DashContent = () => {
             return <Statistics />;
         case 'bikesList':
             return <BikesList/>;
+        case 'addBike':
+            return <AddBike />;
         case 'usersList':
             return <CustomersList/>;
         case 'feedback':

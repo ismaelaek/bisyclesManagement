@@ -80,3 +80,13 @@
     }
 }
 
+.dark-form{
+    label{
+        color: rgb(209, 213, 219) !important;
+    }
+    input, input:active{
+        background-color: #305272;
+    }
+    
+}
+

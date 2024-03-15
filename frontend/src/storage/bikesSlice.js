@@ -5,6 +5,7 @@ import { getEndpoint } from './api';
 const initialState = {
     bikes: [],
     isLoading: false,
+    resMessage: '',
     error: null
 };
 
@@ -16,6 +17,18 @@ export const fetchBikeData = createAsyncThunk('bike/fetchBikeData', async () => 
         throw new Error(error.message);
     }
 });
+
+export const storeBike = createAsyncThunk('bike/storeBike', async (bikeData) => {
+    console.log(bikeData);
+    try {
+        const response = await axios.post("http://localhost:8000/api/bikes", bikeData);
+        console.log(data);
+        return response.data;
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message);
+    }
+}) 
 
 const bikeSlice = createSlice({
     name: 'bikes',
@@ -34,7 +47,20 @@ const bikeSlice = createSlice({
             .addCase(fetchBikeData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
-            });
+            })
+            .addCase(storeBike.pending, state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(storeBike.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.resMessage = action.payload;
+            })
+            .addCase(storeBike.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+
     }
 });
 export default bikeSlice.reducer;
