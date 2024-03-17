@@ -101,7 +101,7 @@ export default function AddBike() {
               />
           </div>
           <Button className=" bg-customBlue"  type="submit">
-            {isLoading? 'Please wait...': 'Submit'}
+            {isLoading? 'Please wait...': 'Add'}
           </Button>
         </form>
       </div>

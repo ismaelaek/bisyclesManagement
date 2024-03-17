@@ -72,6 +72,23 @@
     padding: 8px 4px ;
     text-wrap: wrap;
 }
+.feed-main{
+    height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+.feed-item{
+    border-bottom: black solid 1px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 2px 5px;
+    overflow: hidden;
+}
+.feed-item-dark{
+    border-bottom: white solid 1px;
+    box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+}
+
 
 .dark-theme{
     background-color: #001529;
