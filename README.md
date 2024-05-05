@@ -1,5 +1,5 @@
-# Bisycles Management
-Hello everybody !
+# Bicycles Management
+Hello everybody!
 
 
 ### First step 
