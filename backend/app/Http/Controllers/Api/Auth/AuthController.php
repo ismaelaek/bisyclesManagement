@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\RegistrationRequest;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -38,6 +39,22 @@ class AuthController extends Controller
             'user' => auth()->user(),
             'message' => 'Successfully logged in'
         ]);
+    }
+
+    public function register(RegistrationRequest $request){
+        $user = User::create($request->validated());
+        if(!$user){
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => "Invalid credentials"
+            ], 401);
+        }else{
+            return response()->json([
+                'token' => auth()->login($user),
+                'user' => $user,
+                'message' => 'Successfully logged in'
+            ]);
+        }
     }
 
     /**
