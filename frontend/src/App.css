@@ -1,0 +1,18 @@
+.nav-item {
+    color: black;
+}
+.active {
+    text-decoration: none;
+    position: relative;
+    color: #ff5f01;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    border-bottom: 2px solid #ff5f01;
+}
+

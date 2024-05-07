@@ -120,7 +120,7 @@ function Navbar() {
 									key={index}
 									onClick={handleCloseNavMenu}
 									to={page.path}
-									className="nav-item text-black no-underline ml-10">
+									className="nav-item no-underline ml-10">
 									{page.title}
 								</NavLink>
 							))}
@@ -142,7 +142,7 @@ function Navbar() {
 								<Typography
 									onClick={handleOpenUserMenu}
 									variant="subtitle1"
-									sx={{ ml: 1, color: "black", cursor: "pointer" }}>
+									sx={{ ml: 1,color : "black", cursor: "pointer" }}>
 									{loggedUser.name}
 								</Typography>
 							</Tooltip>
