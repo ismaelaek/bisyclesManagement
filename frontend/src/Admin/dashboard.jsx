@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import {
-	PieChartOutlined,
-	UserOutlined,
-} from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
 import { MdOutlineDirectionsBike, MdOutlineFeedback } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
-import Logo from "../assets/logo.png"
+import { Link , useNavigate} from "react-router-dom";
+import Logo from "../assets/logo.png";
 import { FaMoon, FaSun } from "react-icons/fa";
-import {Layout, Menu, theme , Switch} from "antd";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { Layout, Menu, Switch } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleThemeMode } from "../storage/themeSlice";
+import Cookies from 'js-cookie'
+
 const { Header, Content, Footer, Sider } = Layout;
+
 function getItem(label, key, icon, children) {
 	return {
 		key,
@@ -18,6 +21,7 @@ function getItem(label, key, icon, children) {
 		label,
 	};
 }
+
 const items = [
 	getItem("Statistics", "1", <PieChartOutlined />),
 	getItem("Bikes", "2", <MdOutlineDirectionsBike />),
@@ -25,51 +29,66 @@ const items = [
 	getItem("Add Bike", "4", <IoIosAddCircleOutline />),
 	getItem("Feedbacks", "5", <MdOutlineFeedback />),
 ];
+
 const Dashboard = () => {
 	const [collapsed, setCollapsed] = useState(false);
-	const {
-		token: { colorBgContainer, borderRadiusLG },
-	} = theme.useToken();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isDark = useSelector((state) => state.theme.isDark);
+    
+    useEffect(() => {
+        const token = Cookies.get("token");
+        if (!token) {
+            navigate("/login");
+        }
+    },[navigate])
+	const toggleTheme = () => {
+		dispatch(toggleThemeMode());
+	};
+
 	return (
-		<Layout
-			style={{
-				minHeight: "100vh",
-			}}>
+		<Layout style={{ minHeight: "100vh" }}>
 			<Sider
 				collapsible
 				collapsed={collapsed}
 				onCollapse={(value) => setCollapsed(value)}
-				theme="light"
-				className="pt-2">
+				theme={isDark ? "dark" : "light"}
+				className="pt-11">
 				<Menu
-					theme="light"
+					theme={isDark ? "dark" : "light"}
 					defaultSelectedKeys={["1"]}
 					mode="inline"
 					items={items}
 				/>
+				<span className="absolute bottom-7 left-3 px-4 mb-4">
+					<Link
+						to="/login"
+						className="flex no-underline items-center gap-2 text-red-500 hover:text-red-700"
+						onClick={() => Cookies.remove("token")}>
+						<RiLogoutBoxLine />
+                        { !collapsed && 'Log Out'}
+					</Link>
+				</span>
 			</Sider>
 			<Layout>
-				<Header className=" bg-white h-12 flex justify-between px-4 items-center">
-					<h3>Dashboard</h3>
-                    <div className="flex items-center gap-4">
-                        <div className="flex gap-2">
-                            <FaSun color="black" />
-                            <Switch size="small" />
-                            <FaMoon color="black" size={15} />
-                        </div>
+				<Header
+					className={`h-12 flex justify-between px-4 items-center ${
+						isDark ? "bg-darkBlue text-white" : "bg-white"
+					}`}>
+					<h3 className="m-0">Dashboard</h3>
+					<div className="flex items-center gap-4">
+						<div className="flex gap-2">
+							<FaSun />
+							<Switch size="small" checked={isDark} onChange={toggleTheme} />
+							<FaMoon size={15} />
+						</div>
 						<img src={Logo} alt="" width={50} />
 					</div>
 				</Header>
-				<Content
-					style={{
-						margin: "16px",
-					}}>
+				<Content style={{ margin: "16px" }}>
 					<main className=" h-full bg-white"></main>
 				</Content>
-				<Footer
-					style={{
-						textAlign: "center",
-					}}>
+				<Footer style={{ textAlign: "center" }}>
 					ISTA Tinghir©{new Date().getFullYear()} Created by{" "}
 					<Link to="https://github.com/ismaelaek">Ismael</Link> and{" "}
 					<Link to="https://github.com/ismaelaek">Yassine</Link>
@@ -78,4 +97,5 @@ const Dashboard = () => {
 		</Layout>
 	);
 };
+
 export default Dashboard;
