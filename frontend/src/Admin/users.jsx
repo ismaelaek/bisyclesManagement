@@ -25,7 +25,7 @@ export default function UsersList() {
 	};
 
 	return (
-		<div>
+		<div className="pt-2">
 			<div className="flex items-center justify-center mb-4">
 				<input
 					type="text"

@@ -95,8 +95,11 @@ const Dashboard = () => {
 					</div>
 				</Header>
 				<Content style={{ margin: "16px" }}>
-					<main className="container h-full bg-white">
-								<ContentContainer selectedTab={selectedTab} />
+					<main
+						className={`container h-full ${
+							isDark ? "bg-darkBlue text-white" : "bg-white"
+						}`}>
+						<ContentContainer selectedTab={selectedTab} />
 					</main>
 				</Content>
 				<Footer style={{ textAlign: "center" }}>
