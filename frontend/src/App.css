@@ -27,6 +27,7 @@
     padding: 10px;
     overflow: hidden;
     color: white;
+    display: flex;
 }
 .stats-card-icon{
     transform: rotate(-20deg);

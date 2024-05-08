@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('type');
-            $table->string('color');
             $table->string('size');
             $table->string('price_per_hour');
             $table->string('material');
             $table->string('brand');
             $table->string('image');
             $table->string('description');
-            $table->string('status');
+            $table->boolean('isRented');
         });
     }
 
