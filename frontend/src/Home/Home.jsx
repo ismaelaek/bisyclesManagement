@@ -1,6 +1,6 @@
 import React from "react";
-// import BannerBackground from "../Assets/home-banner-background.png";
-// import BannerImage from "../Assets/home-banner-image.png";
+import BannerBackground from "../assets/home-banner-background.png";
+import BannerImage from "../assets/home-banner-image.png";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -10,26 +10,28 @@ const Home = () => {
 			<Navbar />
 			<div className="home-banner-container">
 				<div className="home-bannerImage-container">
-					{/* <img src={BannerBackground} alt="" /> */}
+					<img src={BannerBackground} alt="" />
 				</div>
 				<div className="home-text-section">
 					<h1 className="primary-heading">
-						Your Favourite Food Delivered Hot & Fresh
+						Explore the Outdoors on Two Wheels
 					</h1>
 					<p className="primary-text">
-						Healthy switcher chefs do all the prep work, like peeding, chopping
-						& marinating, so you can cook a fresh food.
+						Discover the joy of cycling with our premium bicycles. From
+						leisurely rides to adrenaline-pumping trails, we have the perfect
+						ride for every adventure.
 					</p>
 					<button className="secondary-button">
-						Order Now <FiArrowRight />{" "}
+						Rent Now <FiArrowRight />{" "}
 					</button>
 				</div>
 				<div className="home-image-section">
-					{/* <img src={BannerImage} alt="" /> */}
+					<img src={BannerImage} alt="" />
 				</div>
 			</div>
 		</div>
 	);
 };
+
 
 export default Home;

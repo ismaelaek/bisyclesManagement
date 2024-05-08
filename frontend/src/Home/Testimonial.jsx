@@ -6,18 +6,18 @@ const Testimonial = () => {
 	return (
 		<div className="work-section-wrapper">
 			<div className="work-section-top">
-				<p className="primary-subheading">Testimonial</p>
-				<h1 className="primary-heading">What They Are Saying</h1>
+				<p className="primary-subheading">Testimonials</p>
+				<h1 className="primary-heading">What Our Customers Say</h1>
 				<p className="primary-text">
-					Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-					elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+					See what our customers have to say about their biking experiences.
 				</p>
 			</div>
 			<div className="testimonial-section-bottom">
 				{/* <img src={ProfilePic} alt="" /> */}
 				<p>
-					Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-					elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+					"I had an amazing experience renting a bike from this company. The
+					bike was in great condition, and the rental process was smooth and
+					easy. I'll definitely be renting from them again!"
 				</p>
 				<div className="flex gap-2 text-yellow-600">
 					<AiFillStar />

@@ -14,7 +14,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -36,22 +36,20 @@ const Navbar = () => {
 			text: "Contact",
 			icon: <PhoneRoundedIcon />,
 		},
-		{
-			text: "Cart",
-			icon: <ShoppingCartRoundedIcon />,
-		},
 	];
 	return (
 		<nav>
 			<div className="nav-logo-container">
-				<img src={Logo} alt="" width={80}/>
+				<Link to={"/"}>
+					<img src={Logo} alt="" width={80} />
+				</Link>
 			</div>
 			<div className="flex gap-4">
-				<Link to="">Home</Link>
-				<Link to="">About</Link>
-				<Link to="">Testimonials</Link>
-				<Link to="">Contact</Link>
-				<button className="primary-button">Bookings Now</button>
+				<Link to={"/login"} className=" no-underline">
+					<button className="primary-button">
+						Rent Now <FiArrowRight />
+					</button>
+				</Link>
 			</div>
 			<div className="navbar-menu-container">
 				<HiOutlineBars3 onClick={() => setOpenMenu(true)} />
