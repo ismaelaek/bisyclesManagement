@@ -91,7 +91,7 @@ const Dashboard = () => {
 				<Footer style={{ textAlign: "center" }}>
 					ISTA Tinghir©{new Date().getFullYear()} Created by{" "}
 					<Link to="https://github.com/ismaelaek">Ismael</Link> and{" "}
-					<Link to="https://github.com/ismaelaek">Yassine</Link>
+					<Link to="https://github.com/yassinebattouch">Yassine</Link>
 				</Footer>
 			</Layout>
 		</Layout>

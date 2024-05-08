@@ -29,8 +29,11 @@ function Navbar() {
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("user"));
+		if (!user) {
+			navigate("/login");
+		}
 		setLoggedUser(user);
-	}, []);
+	}, [navigate]);
 
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
@@ -50,9 +53,8 @@ function Navbar() {
 		setAnchorElUser(null);
 	};
 	const handleLogout = () => {
-		Cookies.remove("token");
 		localStorage.removeItem("user");
-		window.location.reload();
+		navigate('/login');
 	};
 
 	return (

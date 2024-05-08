@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import Dashboard from "./Admin/dashboard";
 import Home from "./components/home";
 import NotFound from "./components/notFound";
+import Register from "./auth/register";
 
 import "./App.css";
 
@@ -13,7 +14,12 @@ import "./App.css";
 function App() {
 	const location = useLocation();
 	const NavBarContainer = () => {
-			if (location.pathname !== "/login" && location.pathname !== "/dashboard") return <Navbar />;
+			if (
+				location.pathname !== "/login" &&
+				location.pathname !== "/dashboard" &&
+				location.pathname !== "/register"
+			)
+				return <Navbar />;
 		};
 
 	return (
@@ -22,6 +28,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
