@@ -17,7 +17,7 @@ import { Switch } from "antd";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const pages = [
-	{ title: "Home", path: "/" },
+	{ title: "Home", path: "/home" },
 	{ title: "Profile", path: "/profile" },
 	{ title: "chi haja", path: "/chihaja" },
 	{ title: "chi hajatayn", path: "chi hajatayn" },

@@ -20,7 +20,7 @@ const Register = () => {
 				);
 				message.success('You have been registered successfully')
 				localStorage.setItem("user", JSON.stringify(response.data.user));
-				navigate("/"); 
+				navigate("/home"); 
 			} catch (error) {
 				message.error("Registration failed. Please try again.");
 			}

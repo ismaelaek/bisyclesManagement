@@ -41,7 +41,7 @@ const Login = () => {
                 navigate("/dashboard")
             } else {
                 message.success("Login Successful");
-                navigate("/")
+                navigate("/home")
             }
 
 		} catch (error) {
