@@ -20,4 +20,19 @@
     width: 100%;
     border-bottom: 2px solid #ff5f01;
 }
+.stats-card{
+    width: 32%;
+    height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+    color: white;
+}
+.stats-card-icon{
+    transform: rotate(-20deg);
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    opacity: 0.6;
 
+}

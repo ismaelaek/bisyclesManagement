@@ -3,6 +3,7 @@ import BannerBackground from "../assets/home-banner-background.png";
 import BannerImage from "../assets/home-banner-image.png";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (
@@ -21,9 +22,11 @@ const Home = () => {
 						leisurely rides to adrenaline-pumping trails, we have the perfect
 						ride for every adventure.
 					</p>
-					<button className="secondary-button">
-						Rent Now <FiArrowRight />{" "}
-					</button>
+					<Link to={'/login'} className=" no-underline">
+						<button className="secondary-button">
+							Rent Now <FiArrowRight />{" "}
+						</button>
+					</Link>
 				</div>
 				<div className="home-image-section">
 					<img src={BannerImage} alt="" />

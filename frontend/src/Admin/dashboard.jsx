@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
 import { MdOutlineDirectionsBike, MdOutlineFeedback } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { Layout, Menu, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleThemeMode } from "../storage/themeSlice";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
+import { setSelectedTab } from "../storage/dashboardSlice";
+
+import Statistics from "./stats";
+import UsersList from "./users";
+import AddBike from "./addBike";
+import BikesList from "./bikes";
+import Feedbacks from "./feedbacks";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -32,16 +39,17 @@ const items = [
 
 const Dashboard = () => {
 	const [collapsed, setCollapsed] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isDark = useSelector((state) => state.theme.isDark);
-    
-    useEffect(() => {
-        const token = Cookies.get("token");
-        if (!token) {
-            navigate("/login");
-        }
-    },[navigate])
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const isDark = useSelector((state) => state.theme.isDark);
+	const selectedTab = useSelector((state) => state.dashboard.selectedTab);
+
+	useEffect(() => {
+		const token = Cookies.get("token");
+		if (!token) {
+			navigate("/login");
+		}
+	}, [navigate]);
 	const toggleTheme = () => {
 		dispatch(toggleThemeMode());
 	};
@@ -59,6 +67,7 @@ const Dashboard = () => {
 					defaultSelectedKeys={["1"]}
 					mode="inline"
 					items={items}
+					onSelect={({ key }) => dispatch(setSelectedTab(key))}
 				/>
 				<span className="absolute bottom-7 left-3 px-4 mb-4">
 					<Link
@@ -66,7 +75,7 @@ const Dashboard = () => {
 						className="flex no-underline items-center gap-2 text-red-500 hover:text-red-700"
 						onClick={() => Cookies.remove("token")}>
 						<RiLogoutBoxLine />
-                        { !collapsed && 'Log Out'}
+						{!collapsed && "Log Out"}
 					</Link>
 				</span>
 			</Sider>
@@ -86,7 +95,9 @@ const Dashboard = () => {
 					</div>
 				</Header>
 				<Content style={{ margin: "16px" }}>
-					<main className=" h-full bg-white"></main>
+					<main className="container h-full bg-white">
+								<ContentContainer selectedTab={selectedTab} />
+					</main>
 				</Content>
 				<Footer style={{ textAlign: "center" }}>
 					ISTA Tinghir©{new Date().getFullYear()} Created by{" "}
@@ -99,3 +110,20 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const ContentContainer = ({ selectedTab }) => {
+	switch (selectedTab) {
+		case "1":
+			return <Statistics />;
+		case "2":
+			return <BikesList />;
+		case "3":
+			return <UsersList />;
+		case "4":
+			return <AddBike />;
+		case "5":
+			return <Feedbacks />;
+		default:
+			return null;
+	}
+};
