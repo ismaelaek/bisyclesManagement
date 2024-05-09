@@ -12,7 +12,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { Switch } from "antd";
 import { FaMoon, FaSun } from "react-icons/fa";
 

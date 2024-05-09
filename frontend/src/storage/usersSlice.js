@@ -24,7 +24,7 @@ const getUsers = createAsyncThunk("getUsers", async () => {
 	}
 });
 
-const deleteUser = createAsyncThunk("deleteUser", async (userId) => {
+const deleteUser = createAsyncThunk("deleteUser", async (userId, thunkAPI) => {
 	try {
 		const token = Cookies.get("token");
 		await axios.delete(`http://127.0.0.1:8000/api/users/${userId}`, {
@@ -33,17 +33,32 @@ const deleteUser = createAsyncThunk("deleteUser", async (userId) => {
 			},
 		});
 		message.success("User deleted successfully");
-		return userId;
+		// Remove the deleted user from the state
+		thunkAPI.dispatch(removeUser(userId));
 	} catch (error) {
 		console.error("Error deleting user:", error);
 		throw error;
 	}
 });
 
+const removeUser = (userId) => (dispatch, getState) => {
+	const { users } = getState().users;
+	const updatedUsers = users.filter((user) => user.id !== userId);
+	dispatch(setUsers(updatedUsers));
+};
+
+const setUsers = (users) => (dispatch) => {
+	dispatch({ type: "users/setUsers", payload: users });
+};
+
 const UsersSlice = createSlice({
 	name: "users",
 	initialState,
-	reducers: {},
+	reducers: {
+		setUsers(state, action) {
+			state.users = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(getUsers.pending, (state) => {
@@ -63,11 +78,8 @@ const UsersSlice = createSlice({
 				state.usersIsLoading = true;
 				state.usersError = null;
 			})
-			.addCase(deleteUser.fulfilled, (state, action) => {
+			.addCase(deleteUser.fulfilled, (state) => {
 				state.usersIsLoading = false;
-				state.users = state.users.filter(user => {
-					user.id != action.payload;
-				})
 				state.usersError = null;
 			})
 			.addCase(deleteUser.rejected, (state, action) => {

@@ -6,34 +6,85 @@ const { Option } = Select;
 
 const AddBike = () => {
 	const onFinish = (values) => {
+		// Log the form values
+		console.log("Form values:", values);
+
 		// Handle form submission here, e.g., dispatch an action to add the bike
-		console.log("Received values:", values);
+		// You can dispatch an action here to add the bike using Redux or any other state management tool
 	};
 
 	const normFile = (e) => {
 		if (Array.isArray(e)) {
 			return e;
 		}
-		return e && e.fileList;
+		return e && e.fileList && e.fileList.length > 0 ? [e.fileList[0]] : [];
 	};
 
+
 	const materialOptions = ["carbon fiber", "titanium", "steel", "aluminum"];
+	const brandOptions = [
+		"Trek",
+		"Specialized",
+		"Giant",
+		"Cannondale",
+		"Scott",
+		"Santa Cruz",
+		"Cervelo",
+		"Bianchi",
+		"Raleigh",
+		"Merida",
+		"Cube",
+		"Fuji",
+	];
+	const typeOptions = [
+		"Mountain",
+		"Road",
+		"Hybrid",
+		"Cruiser",
+		"Electric",
+		"BMX",
+		"Folding",
+		"Gravel",
+		"City",
+		"Touring",
+		"Track",
+		"VTT",
+	];
+	const sizeOptions = ["M", "L", "XL", "XXL"];
 
 	return (
-		<div className="flex">
-			<div className="w-1/2 p-4">
+		<div className="flex py-4">
+			<div className="w-full">
 				<Form
 					name="addBikeForm"
 					onFinish={onFinish}
+					className="grid grid-cols-2 w-full justify-between"
 					initialValues={{
-						isRented: false, // Default value for isRented
+						isRented: false, 
 					}}
 					labelCol={{
-						span: 8, // Adjust the label column width as needed
+						span: 8,
 					}}
 					wrapperCol={{
-						span: 16, // Adjust the input column width as needed
+						span: 16,
 					}}>
+					<Form.Item
+						label="Brand"
+						name="brand"
+						rules={[
+							{
+								required: true,
+								message: "Please input the brand of bike!",
+							},
+						]}>
+						<Select>
+							{brandOptions.map((brand) => (
+								<Option key={brand} value={brand}>
+									{brand}
+								</Option>
+							))}
+						</Select>
+					</Form.Item>
 					<Form.Item
 						label="Type"
 						name="type"
@@ -43,7 +94,13 @@ const AddBike = () => {
 								message: "Please input the type of bike!",
 							},
 						]}>
-						<Input />
+						<Select>
+							{typeOptions.map((type) => (
+								<Option key={type} value={type}>
+									{type}
+								</Option>
+							))}
+						</Select>
 					</Form.Item>
 					<Form.Item
 						label="Size"
@@ -54,18 +111,13 @@ const AddBike = () => {
 								message: "Please input the size of bike!",
 							},
 						]}>
-						<Input />
-					</Form.Item>
-					<Form.Item
-						label="Price Per Hour"
-						name="price_per_hour"
-						rules={[
-							{
-								required: true,
-								message: "Please input the price per hour!",
-							},
-						]}>
-						<Input />
+						<Select>
+							{sizeOptions.map((size) => (
+								<Option key={size} value={size}>
+									{size}
+								</Option>
+							))}
+						</Select>
 					</Form.Item>
 					<Form.Item
 						label="Material"
@@ -85,31 +137,16 @@ const AddBike = () => {
 						</Select>
 					</Form.Item>
 					<Form.Item
-						label="Brand"
-						name="brand"
+						label="Price Per Hour"
+						name="price_per_hour"
 						rules={[
 							{
 								required: true,
-								message: "Please input the brand of bike!",
+								message: "Please input the price per hour!",
 							},
 						]}>
 						<Input />
 					</Form.Item>
-				</Form>
-			</div>
-			<div className="w-1/2 p-4">
-				<Form
-					name="addBikeForm"
-					onFinish={onFinish}
-					initialValues={{
-						isRented: false,
-					}}
-					labelCol={{
-						span: 8, 
-					}}
-					wrapperCol={{
-						span: 16, 
-					}}>
 					<Form.Item
 						label="Description"
 						name="description"
@@ -145,7 +182,7 @@ const AddBike = () => {
 						<Input type="hidden" />
 					</Form.Item>
 					<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-						<Button type="primary" htmlType="submit">
+						<Button type="primary" htmlType="submit" className="w-full mt-3">
 							Add Bike
 						</Button>
 					</Form.Item>

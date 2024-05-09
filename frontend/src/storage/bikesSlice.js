@@ -1,92 +1,76 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { message } from "antd";
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 const initialState = {
-	users: [],
-	usersIsLoading: false,
-	usersError: null,
+	bikes: [],
+	bikesIsLoading: false,
+	bikesError: null,
 };
 
-const getUsers = createAsyncThunk("getUsers", async () => {
+const getBikes = createAsyncThunk("getBikes", async () => {
 	try {
-		const token = Cookies.get("token");
-		const response = await axios.get("http://127.0.0.1:8000/api/users", {
-			headers: {
-				Authorization: `Bearer ${token}`,
-				"Content-Type": "application/json",
-			},
-		});
+		const response = await axios.get("http://127.0.0.1:8000/api/bikes")
 		return response.data;
 	} catch (error) {
+		console.log("error : ", error);
 		throw error;
 	}
 });
 
-const deleteUser = createAsyncThunk("deleteUser", async (userId, thunkAPI) => {
+const deleteBike = createAsyncThunk("deleteBike", async (bikeId) => {
 	try {
 		const token = Cookies.get("token");
-		await axios.delete(`http://127.0.0.1:8000/api/users/${userId}`, {
+		await axios.delete(`http://127.0.0.1:8000/api/bikes/${bikeId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		message.success("User deleted successfully");
-		thunkAPI.dispatch(removeUser(userId));
+		message.success("Bike deleted successfully");
+		return bikeId;
 	} catch (error) {
-		console.error("Error deleting user:", error);
+		console.error("Error deleting bike:", error);
 		throw error;
 	}
 });
 
-const removeUser = (userId) => (dispatch, getState) => {
-	const { users } = getState().users;
-	const updatedUsers = users.filter((user) => user.id !== userId);
-	dispatch(setUsers(updatedUsers));
-};
-
-const setUsers = (users) => (dispatch) => {
-	dispatch({ type: "users/setUsers", payload: users });
-};
-
-const UsersSlice = createSlice({
-	name: "users",
+const bikesSlice = createSlice({
+	name: "bikes",
 	initialState,
-	reducers: {
-		setUsers(state, action) {
-			state.users = action.payload;
-		},
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getUsers.pending, (state) => {
-				state.usersIsLoading = true;
-				state.usersError = null;
+			.addCase(getBikes.pending, (state) => {
+				state.bikesIsLoading = true;
+				state.bikesError = null;
 			})
-			.addCase(getUsers.fulfilled, (state, action) => {
-				state.usersIsLoading = false;
-				state.users = action.payload;
-				state.usersError = null;
+			.addCase(getBikes.fulfilled, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikes = action.payload;
+				state.bikesError = null;
 			})
-			.addCase(getUsers.rejected, (state, action) => {
-				state.usersIsLoading = false;
-				state.usersError = action.error.message;
+			.addCase(getBikes.rejected, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikesError = action.error.message;
 			})
-			.addCase(deleteUser.pending, (state) => {
-				state.usersIsLoading = true;
-				state.usersError = null;
+			.addCase(deleteBike.pending, (state) => {
+				state.bikesIsLoading = true;
+				state.bikesError = null;
 			})
-			.addCase(deleteUser.fulfilled, (state) => {
-				state.usersIsLoading = false;
-				state.usersError = null;
+			.addCase(deleteBike.fulfilled, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikes = state.bikes.filter((user) => {
+					user.id != action.payload;
+				});
+				state.bikesError = null;
 			})
-			.addCase(deleteUser.rejected, (state, action) => {
-				state.usersIsLoading = false;
-				state.usersError = action.error.message;
+			.addCase(deleteBike.rejected, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikesError = action.error.message;
 			});
 	},
 });
 
-export { getUsers, deleteUser };
-export default UsersSlice.reducer;
+export { getBikes, deleteBike };
+export default bikesSlice.reducer;

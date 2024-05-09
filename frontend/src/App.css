@@ -54,17 +54,27 @@
     filter: drop-shadow(3px 20px 15px rgba(0,0,0,0.5));
 }
 .search{
-    position: absolute;
-    bottom: -8%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    margin-top: -50px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) ;
-}
-.card-img{
-    background-color: #ff5f01;
-    border-radius: 0;
 }
 .bike-card{
     box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.2);
 }
+.card-info >p:first-child{
+    color: #ff5f01;
+}
+.card-info button{
+    background-color: #ff5f01;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    height: fit-content;
+    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.2);
+    transition-duration: 0.5s;
+}
+
+.card-info button:hover{
+    background-color: #ce5209;
+}
+
