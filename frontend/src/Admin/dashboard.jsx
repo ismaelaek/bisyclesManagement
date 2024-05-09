@@ -96,7 +96,7 @@ const Dashboard = () => {
 				</Header>
 				<Content style={{ margin: "16px" }}>
 					<main
-						className={`container h-full ${
+						className={`container h-full rounded-xl ${
 							isDark ? "bg-darkBlue text-white" : "bg-white"
 						}`}>
 						<ContentContainer selectedTab={selectedTab} />

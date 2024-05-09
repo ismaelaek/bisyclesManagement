@@ -105,10 +105,10 @@ const AddBike = () => {
 						isRented: false,
 					}}
 					labelCol={{
-						span: 8, // Adjust the label column width as needed
+						span: 8, 
 					}}
 					wrapperCol={{
-						span: 16, // Adjust the input column width as needed
+						span: 16, 
 					}}>
 					<Form.Item
 						label="Description"
@@ -136,6 +136,7 @@ const AddBike = () => {
 							name="image"
 							listType="picture"
 							accept=".png,.jpeg,.jpg"
+							multiple={false}
 							beforeUpload={() => false}>
 							<Button icon={<UploadOutlined />}>Upload</Button>
 						</Upload>
