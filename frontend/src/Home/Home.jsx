@@ -6,6 +6,8 @@ import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+	const user = JSON.parse(localStorage.getItem("user"));
+	const logged = user?.isAdmmin == 0;
 	return (
 		<div className="home-container">
 			<Navbar />
@@ -22,7 +24,7 @@ const Home = () => {
 						leisurely rides to adrenaline-pumping trails, we have the perfect
 						ride for every adventure.
 					</p>
-					<Link to={'/login'} className=" no-underline">
+					<Link to={logged? '/home' : '/login'} className=" no-underline">
 						<button className="secondary-button">
 							Rent Now <FiArrowRight />{" "}
 						</button>

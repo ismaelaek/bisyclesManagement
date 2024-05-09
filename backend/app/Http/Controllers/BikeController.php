@@ -10,4 +10,13 @@ class BikeController extends Controller
         $data = Bike::get();
         return response()->json($data);
     }
+    public function destroy(string $id)
+    {
+        $user = Bike::findOrFail($id);
+
+        $user->delete();
+        return response()->json([
+            'message' => 'bike deleted successfully'
+        ], 204);
+    }
 }

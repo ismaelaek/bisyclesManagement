@@ -43,11 +43,11 @@ export default function BikesList() {
 						<tr>
 							<th>Type</th>
 							<th>Size</th>
-							<th>Price Per Hour</th>
+							<th>Price /h</th>
 							<th>Material</th>
 							<th>Brand</th>
-							<th className="pl-2">Description</th>
 							<th>Disponible</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>

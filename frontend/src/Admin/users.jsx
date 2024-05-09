@@ -44,7 +44,8 @@ export default function UsersList() {
 						<tr>
 							<th>Name</th>
 							<th>Email</th>
-							<th>Phone</th>
+								<th>Phone</th>
+								<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>

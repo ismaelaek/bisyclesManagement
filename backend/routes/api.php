@@ -26,8 +26,11 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 
 Route::prefix('/users')->middleware('auth:api')->group(function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::delete('/{user}', [UserController::class, 'destroy']);
+
 });
 
 Route::prefix('/bikes')->group(function () {
     Route::get('/', [BikeController::class, 'index']);
+    Route::delete('/{bike}', [BikeController::class, 'destroy']);
 });

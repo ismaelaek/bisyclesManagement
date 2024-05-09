@@ -80,6 +80,10 @@ const Home = () => {
 			<div className="thumbnail">
 				<h1 className="text-9xl">RENT A BIKE</h1>
 				<img src={ThumbImage} alt="" width={500} />
+				<div className="text-center pt-3">
+					<p className="text-2xl">Make the right choice and pedal towards your dream ride</p>
+					<p className="text-3xl">Find the bicycle that gives you wings!</p>
+				</div>
 			</div>
 			<div className="search w-2/3 bg-white flex justify-between items-center p-4">
 				<div className=" flex">
