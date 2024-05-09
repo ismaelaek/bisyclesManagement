@@ -2,6 +2,7 @@
 
 * {
     font-family: "Cairo", sans-serif;
+    scroll-behavior: smooth;
 }
 .nav-item {
     color: black;
@@ -58,8 +59,12 @@
     left: 50%;
     transform: translate(-50%,-50%);
     border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) ;
 }
 .card-img{
     background-color: #ff5f01;
     border-radius: 0;
+}
+.bike-card{
+    box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.2);
 }
