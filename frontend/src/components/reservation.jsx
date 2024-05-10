@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBikes } from "../storage/bikesSlice";
 import { addRental } from "../storage/rentalsSlice";
-import { Form, Input, DatePicker, Button, message } from "antd";
-import moment from "moment";
+import { Form, DatePicker, Button } from "antd";
+import BikeCard from "./bikeCard";
 
 const Reservation = () => {
 	const dispatch = useDispatch();
@@ -104,7 +104,7 @@ const Reservation = () => {
 						</Form>
 					</div>
 				</div>
-				<div className="reserve-info w-full bg-white p-2 rounded-lg">
+				<div className="reserve-info w-full bg-white px-3 py-2 rounded-lg">
 					<p className="p-0 m-0 text-5xl text-main">{bike?.brand}</p>
 					<p className=" text-3xl">Type : {bike?.type}</p>
 					<p>Made of :{bike?.material}</p>
@@ -117,6 +117,14 @@ const Reservation = () => {
 						<span className="text-sm"> $</span>
 					</p>
 				</div>
+            </div>
+            <div className="my-4 w-full flex justify-center">
+                <p>Related </p>
+            </div>
+			<div className=" container gap-5 listing grid grid-cols-3 w-full pt-2">
+				{bikes.map((bike) => {
+					return <BikeCard key={bike.id} bike={bike} />;
+				})}
 			</div>
 		</div>
 	);

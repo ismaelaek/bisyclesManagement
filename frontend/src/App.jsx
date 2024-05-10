@@ -9,7 +9,7 @@ import NotFound from "./components/notFound";
 import Register from "./auth/register";
 import Landing from "./Home/main";
 import Reservation from "./components/reservation";
-
+import Footer from "./Home/Footer";
 import "./App.css";
 
 
@@ -23,7 +23,15 @@ function App() {
 			location.pathname !== "/register"
 		)
 			return <Navbar />;
-		};
+	};
+	const FooterContainer = () => {
+		if (
+			location.pathname !== "/login" &&
+			location.pathname !== "/dashboard" &&
+			location.pathname !== "/register"
+		)
+			return <Footer />;
+	};
 
 	return (
 		<Provider store={store}>
@@ -37,6 +45,7 @@ function App() {
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
+			<FooterContainer/>
 		</Provider>
 	);
 }

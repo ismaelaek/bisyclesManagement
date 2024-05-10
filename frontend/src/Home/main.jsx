@@ -3,7 +3,6 @@ import About from "./About";
 import Work from "./Work";
 import Testimonial from "./Testimonial";
 import Contact from "./Contact";
-import Footer from "./Footer";
 import "../styles/landing.css"
 function Landing() {
 	return (
@@ -13,7 +12,6 @@ function Landing() {
 			<Work />
 			<Testimonial />
 			<Contact />
-			<Footer />
 		</div>
 	);
 }
