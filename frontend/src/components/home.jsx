@@ -5,6 +5,7 @@ import ThumbImage from "../assets/thumb_image.png";
 import Loader from "./loader";
 import BikeCard from "./bikeCard";
 import { Input, Select } from "antd";
+import { SlDrawer } from "react-icons/sl";
 const { Search } = Input;
 const { Option } = Select;
 
@@ -128,7 +129,10 @@ const Home = () => {
 			) : (
 				<div className=" container gap-5 listing grid grid-cols-3 w-full mt-5 pt-8">
 					{filteredBikes.length === 0 ? (
-						<h1 className="text-center">No Bikes found</h1>
+						<div className="col-span-full flex flex-col items-center ">
+							<SlDrawer className="text-9xl" />
+							<h3 className="text-center">No Bikes found</h3>
+						</div>
 					) : (
 						filteredBikes.map((bike) => {
 							return <BikeCard key={bike.id} bike={bike} />;

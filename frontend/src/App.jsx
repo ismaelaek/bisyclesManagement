@@ -8,6 +8,7 @@ import Home from "./components/home";
 import NotFound from "./components/notFound";
 import Register from "./auth/register";
 import Landing from "./Home/main";
+import Reservation from "./components/reservation";
 
 import "./App.css";
 
@@ -32,6 +33,7 @@ function App() {
 				<Route path="/home" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/reserve/:id" element={<Reservation />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>

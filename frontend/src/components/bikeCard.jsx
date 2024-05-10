@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "antd/es/typography/Link";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 export default function BikeCard({ bike }) {
@@ -26,10 +26,12 @@ export default function BikeCard({ bike }) {
 					<p className="text-3xl">
 						{bike.price_per_hour} <span className="text-sm"> $/h</span>
 					</p>
-					<button className="flex items-center gap-2 overflow-hidden">
-						<span>Reserve</span>
-						<FaArrowRight className="arrow" />
-					</button>
+					<Link to={`/reserve/${bike.id}`} className="no-underline" >
+						<button className="flex items-center gap-2 overflow-hidden">
+							<span>Reserve</span>
+							<FaArrowRight className="arrow" />
+						</button>
+					</Link>
 				</div>
 			</div>
 		</div>

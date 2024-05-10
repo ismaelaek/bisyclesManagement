@@ -34,12 +34,12 @@ const Login = () => {
 				formData
 			);
 			const user = response.data.user;
-			localStorage.setItem("user", JSON.stringify(user));
             if (user.isAdmin) {
                 Cookies.set("token", response.data.token, { expires: 7, secure: true });
                 message.success("Logged in as admin");
                 navigate("/dashboard")
-            } else {
+			} else {
+				localStorage.setItem("user", JSON.stringify(user));
                 message.success("Login Successful");
                 navigate("/home")
             }
