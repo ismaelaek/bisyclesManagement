@@ -33,4 +33,5 @@ Route::prefix('/users')->middleware('auth:api')->group(function () {
 Route::prefix('/bikes')->group(function () {
     Route::get('/', [BikeController::class, 'index']);
     Route::delete('/{bike}', [BikeController::class, 'destroy']);
+    Route::post('/', [BikeController::class, 'store']);
 });

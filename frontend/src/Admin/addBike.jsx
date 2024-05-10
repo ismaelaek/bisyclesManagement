@@ -1,16 +1,29 @@
 import React from "react";
 import { Form, Input, Button, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { addBike } from "../storage/bikesSlice";
 
 const { Option } = Select;
 
 const AddBike = () => {
-	const onFinish = (values) => {
-		// Log the form values
-		console.log("Form values:", values);
+	const dispatch = useDispatch();
+	const [form] = Form.useForm(); 
 
-		// Handle form submission here, e.g., dispatch an action to add the bike
-		// You can dispatch an action here to add the bike using Redux or any other state management tool
+	const onFinish = (values) => {
+		const formData = new FormData();
+		Object.keys(values).forEach((key) => {
+			if (key === "image") {
+				if (values[key]?.[0]?.originFileObj) {
+					formData.append(key, values[key][0].originFileObj);
+				}
+			} else {
+				formData.append(key, values[key]);
+			}
+		});
+
+		dispatch(addBike(formData));
+		form.resetFields(); 
 	};
 
 	const normFile = (e) => {

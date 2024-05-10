@@ -19,6 +19,28 @@ const getBikes = createAsyncThunk("getBikes", async () => {
 	}
 });
 
+const addBike = createAsyncThunk("addBike", async (formData) => {
+	try {
+		const token = Cookies.get("token");
+		const response = await axios.post(
+			"http://127.0.0.1:8000/api/bikes",
+			formData,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		);
+		message.success("Bike added successfully"); 
+		return response.data.bike; 
+	} catch (error) {
+		console.error("Error adding bike:", error);
+		throw error;
+	}
+});
+
+
 const deleteBike = createAsyncThunk("deleteBike", async (bikeId) => {
 	try {
 		const token = Cookies.get("token");
@@ -68,9 +90,22 @@ const bikesSlice = createSlice({
 			.addCase(deleteBike.rejected, (state, action) => {
 				state.bikesIsLoading = false;
 				state.bikesError = action.error.message;
+			})
+			.addCase(addBike.pending, (state) => {
+				state.bikesIsLoading = true;
+				state.bikesError = null;
+			})
+			.addCase(addBike.fulfilled, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikes.push(action.payload); 
+				state.bikesError = null;
+			})
+			.addCase(addBike.rejected, (state, action) => {
+				state.bikesIsLoading = false;
+				state.bikesError = action.error.message;
 			});
 	},
 });
 
-export { getBikes, deleteBike };
+export { getBikes, deleteBike , addBike};
 export default bikesSlice.reducer;

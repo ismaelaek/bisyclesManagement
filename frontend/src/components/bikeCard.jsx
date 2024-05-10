@@ -1,5 +1,4 @@
 import React from "react";
-import imageTest from "../assets/home-banner-image.png";
 import Link from "antd/es/typography/Link";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -13,7 +12,7 @@ export default function BikeCard({ bike }) {
 			</div>
 			<div className="overflow-hidden h-48 flex justify-center">
 				<img
-					src={imageTest}
+					src={`http://127.0.0.1:8000/storage/uploads/${bike.image}`}
 					alt=""
 					className="h-full hover:scale-110 duration-300 ease-in-out"
 				/>
@@ -29,7 +28,7 @@ export default function BikeCard({ bike }) {
 					</p>
 					<button className="flex items-center gap-2 overflow-hidden">
 						<span>Reserve</span>
-						<FaArrowRight  className="arrow"/>
+						<FaArrowRight className="arrow" />
 					</button>
 				</div>
 			</div>
