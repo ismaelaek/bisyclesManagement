@@ -18,7 +18,7 @@ export default function BikeItem({ bike }) {
 			<td>{bike.material}</td>
 			<td>{bike.brand}</td>
 			<td>
-				{bike.isRented ? (
+				{!bike.isRented ? (
 					<div className="flex items-center gap-2">
 						<div className="w-2 h-2 bg-green-200 rounded-xl"></div>
 						Yes

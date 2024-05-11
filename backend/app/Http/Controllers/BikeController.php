@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class BikeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('index');
+    }
     public function index(){
         $data = Bike::get();
         return response()->json($data);

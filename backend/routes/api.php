@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\BikeController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,4 +34,12 @@ Route::prefix('/bikes')->group(function () {
     Route::get('/', [BikeController::class, 'index']);
     Route::delete('/{bike}', [BikeController::class, 'destroy']);
     Route::post('/', [BikeController::class, 'store']);
+});
+
+Route::prefix('/rental')->group(function () {
+    Route::get('/', [RentalController::class, 'index']);
+    Route::post('/', [RentalController::class, 'store']);
+    Route::put('/{id}', [RentalController::class, 'update']);
+    Route::delete('/{id}', [RentalController::class, 'destroy']);
+    Route::get('/total-income', [RentalController::class, 'totalIncome']);
 });

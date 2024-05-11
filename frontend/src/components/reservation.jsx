@@ -1,16 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBikes } from "../storage/bikesSlice";
-import { addRental } from "../storage/rentalsSlice";
+import { addRental, getRentals } from "../storage/rentalsSlice";
 import { Form, DatePicker, Button } from "antd";
-import BikeCard from "./bikeCard";
+import moment from "moment";
 
 const Reservation = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const user = JSON.parse(localStorage.getItem("user"));
 	const { bikes } = useSelector((state) => state.bikes);
+	const { rentals } = useSelector((state) => state.rentals);
+	const bikeIsRented = rentals.filter((rental) => rental.bike_id == id);
+	let bikeReturnDate;
+
+	useEffect(() => {
+		dispatch(getBikes());
+		dispatch(getRentals());
+	}, [dispatch]);
+
+	const isBikeCurrentlyRented = () => {
+		if (!bikeIsRented || bikeIsRented.length === 0) {
+			return false;
+		}
+
+		const currentDate = moment();
+
+		for (let i = 0; i < bikeIsRented.length; i++) {
+			const rental = bikeIsRented[i];
+			const startDate = moment(rental.start_date);
+			const endDate = moment(rental.end_date);
+
+			if (currentDate.isBetween(startDate, endDate)) {
+				bikeReturnDate = endDate.format("YYYY-MM-DD");
+				return true;
+			}
+		}
+
+		return false;
+	};
+
 	const bike = bikes.find((bike) => bike.id == id);
 	const [form] = Form.useForm();
 	const [totalPrice, setTotalPrice] = useState(0);
@@ -18,10 +49,6 @@ const Reservation = () => {
 		start: null,
 		end: null,
 	});
-
-	useEffect(() => {
-		dispatch(getBikes());
-	}, [dispatch]);
 
 	const handleStartDate = (date) => {
 		setDates({ ...dates, start: date });
@@ -44,6 +71,7 @@ const Reservation = () => {
 			total_price: totalPrice,
 		};
 		dispatch(addRental(rentalData));
+		navigate('/home')
 	};
 
 	return (
@@ -72,6 +100,34 @@ const Reservation = () => {
 								<DatePicker
 									placeholder="Start Date"
 									onChange={handleStartDate}
+									disabledDate={(current) => {
+										if (current && current < moment().startOf("day")) {
+											return true;
+										}
+
+										for (let i = 0; i < bikeIsRented.length; i++) {
+											const rental = bikeIsRented[i];
+											const startDate = moment(rental.start_date);
+											const endDate = moment(rental.end_date);
+											if (
+												current &&
+												current >= startDate &&
+												current <= endDate
+											) {
+												return true;
+											}
+										}
+
+										if (
+											isBikeCurrentlyRented() &&
+											current &&
+											current < moment(bikeReturnDate)
+										) {
+											return true;
+										}
+
+										return false;
+									}}
 								/>
 							</Form.Item>
 							<Form.Item
@@ -116,15 +172,13 @@ const Reservation = () => {
 						Total Price: <b className="text-main">{totalPrice}</b>{" "}
 						<span className="text-sm"> $</span>
 					</p>
+					{isBikeCurrentlyRented() ? (
+						<p>
+							*This bike is currently rented and will be available on{" "}
+							<span className="text-red-500">{bikeReturnDate}</span>
+						</p>
+					) : null}
 				</div>
-            </div>
-            <div className="my-4 w-full flex justify-center">
-                <p>Related </p>
-            </div>
-			<div className=" container gap-5 listing grid grid-cols-3 w-full pt-2">
-				{bikes.map((bike) => {
-					return <BikeCard key={bike.id} bike={bike} />;
-				})}
 			</div>
 		</div>
 	);

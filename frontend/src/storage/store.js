@@ -3,6 +3,7 @@ import themeReducer from "./themeSlice";
 import dashboardSlice from "./dashboardSlice";
 import usersSlice from "./usersSlice";
 import bikesSlice from "./bikesSlice";
+import rentalsSlice from "./rentalsSlice";
 
 const store = configureStore({
 	reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
 		dashboard: dashboardSlice,
 		users: usersSlice,
 		bikes: bikesSlice,
+		rentals: rentalsSlice,
 	},
 });
 
