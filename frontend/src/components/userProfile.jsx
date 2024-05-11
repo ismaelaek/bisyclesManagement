@@ -12,7 +12,9 @@ export default function UserProfile() {
 	const dispatch = useDispatch();
 	const { rentals, rentalsIsLoading } = useSelector((state) => state.rentals);
 	const { bikes, bikesIsLoading } = useSelector((state) => state.bikes);
-	const { id } = useParams();
+    let { id } = useParams();
+    console.log(" encry", id);
+	id = JSON.parse(atob(id));
 	const userRentals = rentals.filter((rental) => rental.user_id == id);
 
 	const user = JSON.parse(localStorage.getItem("user"));
@@ -41,7 +43,7 @@ export default function UserProfile() {
 						</div>
 						<div>
 							<Link
-								to={`/profile/${id}/edit`}
+								to={`/profile/${btoa(JSON.stringify(id))}/edit`}
 								className="flex gap-2 items-center text-2xl text-white">
 								<TbUserEdit />
 								Edit info

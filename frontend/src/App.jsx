@@ -12,6 +12,7 @@ import Reservation from "./components/reservation";
 import Footer from "./Home/Footer";
 import UserProfile from "./components/userProfile";
 import "./App.css";
+import UserEdit from "./components/userEdit";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/reserve/:id" element={<Reservation />} />
 				<Route path="/profile/:id" element={<UserProfile />} />
+				<Route path="/profile/:id/edit" element={<UserEdit />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>

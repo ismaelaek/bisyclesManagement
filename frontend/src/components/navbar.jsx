@@ -50,10 +50,10 @@ function Navbar() {
 		localStorage.removeItem("user");
 		navigate('/login');
 	};
-
+	const encryptedId = btoa(JSON.stringify(loggedUser.id));
 	const pages = [
 		{ title: "Home", path: "/home" },
-		{ title: "Profile", path: `/profile/${loggedUser.id}` },
+		{ title: "Profile", path: `/profile/${encryptedId}` },
 	];
 
 	return (
