@@ -61,7 +61,7 @@ function Navbar() {
 			<AppBar position="static" style={{ backgroundColor: "#fff" }}>
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
-						<Link to="/">
+						<Link to="/home">
 							<img src={Logo} alt="reant a bike logo" width={50} />
 						</Link>
 

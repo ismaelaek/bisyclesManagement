@@ -58,7 +58,7 @@ export default function UserProfile() {
 				{userRentals.length == 0 ? (
 					<div className="flex flex-col justify-center items-center">
 						<SlDrawer className="text-9xl" />
-						<p className="ml-2">No history found</p>
+						<p className="ml-2">Nothing to see yet, <Link to={'/home'}>book</Link> your first reservation</p>
 					</div>
 				) : (
 					<table className=" w-full">

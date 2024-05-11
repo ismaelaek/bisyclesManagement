@@ -13,6 +13,7 @@ const Reservation = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
 	const { bikes } = useSelector((state) => state.bikes);
 	const { rentals } = useSelector((state) => state.rentals);
+	const bike = bikes.find((bike) => bike.id == id);
 	const bikeIsRented = rentals.filter((rental) => rental.bike_id == id);
 	let bikeReturnDate;
 
@@ -20,6 +21,12 @@ const Reservation = () => {
 		dispatch(getBikes());
 		dispatch(getRentals());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (!bike) {
+			navigate('/home')
+		}
+    }, [bike]);
 
 	const isBikeCurrentlyRented = () => {
 		if (!bikeIsRented || bikeIsRented.length === 0) {
@@ -42,7 +49,7 @@ const Reservation = () => {
 		return false;
 	};
 
-	const bike = bikes.find((bike) => bike.id == id);
+	
 	const [form] = Form.useForm();
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [dates, setDates] = useState({
