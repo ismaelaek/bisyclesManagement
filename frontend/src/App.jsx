@@ -10,6 +10,7 @@ import Register from "./auth/register";
 import Landing from "./Home/main";
 import Reservation from "./components/reservation";
 import Footer from "./Home/Footer";
+import UserProfile from "./components/userProfile";
 import "./App.css";
 
 
@@ -42,10 +43,11 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/reserve/:id" element={<Reservation />} />
+				<Route path="/profile/:id" element={<UserProfile />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
-			<FooterContainer/>
+			<FooterContainer />
 		</Provider>
 	);
 }

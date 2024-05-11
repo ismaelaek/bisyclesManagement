@@ -77,4 +77,8 @@
 .card-info button:hover{
     background-color: #ce5209;
 }
+.line{
+    margin-top: -12px;
+    z-index: 0;
+}
 

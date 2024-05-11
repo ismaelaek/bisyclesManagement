@@ -15,12 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Switch } from "antd";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-const pages = [
-	{ title: "Home", path: "/home" },
-	{ title: "Profile", path: "/profile" },
-	{ title: "chi haja", path: "/chihaja" },
-	{ title: "chi hajatayn", path: "chi hajatayn" },
-];
+
 
 function Navbar() {
 	const navigate = useNavigate();
@@ -55,6 +50,11 @@ function Navbar() {
 		localStorage.removeItem("user");
 		navigate('/login');
 	};
+
+	const pages = [
+		{ title: "Home", path: "/home" },
+		{ title: "Profile", path: `/profile/${loggedUser.id}` },
+	];
 
 	return (
 		<nav>
