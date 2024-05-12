@@ -14,10 +14,13 @@ import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "antd";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { updateStatuses } from "../storage/rentalsSlice";
+import { useDispatch } from "react-redux";
 
 
 
 function Navbar() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [loggedUser, setLoggedUser] = useState({});
 
@@ -28,6 +31,10 @@ function Navbar() {
 		}
 		setLoggedUser(user);
 	}, [navigate]);
+	
+	useEffect(() => {
+        dispatch(updateStatuses());
+    }, [dispatch]);
 
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);

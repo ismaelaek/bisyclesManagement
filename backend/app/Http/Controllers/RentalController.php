@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rental;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['store', 'index']);
+        $this->middleware('auth:api')->except(['store', 'index', 'updateStatus']);
     }
 
     public function index()
@@ -79,5 +80,39 @@ class RentalController extends Controller
             $total += $rental->total_price;
         }
         return response()->json(['message' => 'Total Income', 'total' => $total], 200);
+    }
+
+    public function cancelRental($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->status = 'Canceled';
+        $rental->end_date = '-' ;
+        $rental->total_price = 0;
+
+        $rental->save();
+
+        return response()->json(['message' => 'Rental canceled successfully', 'rental' => $rental], 200);
+    }
+
+    public function updateStatus()
+    {
+        $rentals = Rental::all();
+
+        foreach ($rentals as $rental) {
+            $currentDate = Carbon::now();
+            $startDate = Carbon::parse($rental->start_date);
+            $endDate = Carbon::parse($rental->end_date);
+            if($rental->status != 'Canceled'){
+
+                if ($currentDate->gte($startDate) && $currentDate->lt($endDate)) {
+                    $rental->status = 'In Progress';
+                } elseif ($currentDate->gte($endDate)) {
+                    $rental->status = 'Completed';
+                }
+            }
+            $rental->save();
+        }
+
+        return response()->json(['message' => 'Rental statuses updated successfully'], 200);
     }
 }

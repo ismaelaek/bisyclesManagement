@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import UserIcon from "../assets/user-icon.svg";
 import { HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
 import { TbUserEdit } from "react-icons/tb";
@@ -7,13 +7,14 @@ import { getRentals } from "../storage/rentalsSlice";
 import { getBikes } from "../storage/bikesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { SlDrawer } from "react-icons/sl";
+import UserRentalItem from "./userRentalItem";
+
 
 export default function UserProfile() {
 	const dispatch = useDispatch();
 	const { rentals, rentalsIsLoading } = useSelector((state) => state.rentals);
 	const { bikes, bikesIsLoading } = useSelector((state) => state.bikes);
-    let { id } = useParams();
-    console.log(" encry", id);
+	let { id } = useParams();
 	id = JSON.parse(atob(id));
 	const userRentals = rentals.filter((rental) => rental.user_id == id);
 
@@ -58,17 +59,23 @@ export default function UserProfile() {
 				{userRentals.length == 0 ? (
 					<div className="flex flex-col justify-center items-center">
 						<SlDrawer className="text-9xl" />
-						<p className="ml-2">Nothing to see yet, <Link to={'/home'}>book</Link> your first reservation</p>
+						<p className="ml-2">
+							Nothing to see yet, <Link to={"/home"}>book</Link> your first
+							reservation
+						</p>
 					</div>
 				) : (
-					<table className=" w-full">
+					<table className="w-full">
 						<thead>
-							<th> Brand</th>
-							<th> Type</th>
-							<th> Start Date</th>
-							<th> End Date</th>
-							<th> Total Price</th>
-							<th> Action</th>
+							<tr>
+								<th>Brand</th>
+								<th>Type</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Total Price</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
 						</thead>
 						<tbody>
 							{userRentals.map((userRental) => (
@@ -85,19 +92,3 @@ export default function UserProfile() {
 		</main>
 	);
 }
-
-const UserRentalItem = ({ userRental, bikes }) => {
-	const bike = bikes.find((bike) => bike.id == userRental.bike_id);
-	return (
-		<tr>
-			<td>{bike.brand}</td>
-			<td>{bike.type}</td>
-			<td>{userRental.start_date}</td>
-			<td>{userRental.end_date}</td>
-			<td>{userRental.total_price}$</td>
-			<td>
-				<Link to={`/reserve/${bike.id}`}>Reserve again</Link>
-			</td>
-		</tr>
-	);
-};

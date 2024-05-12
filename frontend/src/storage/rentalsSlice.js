@@ -27,7 +27,6 @@ const addRental = createAsyncThunk("addRental", async (formData) => {
 
 		return response.data;
 	} catch (error) {
-		console.log("error : ", error);
 		throw error;
 	}
 });
@@ -45,6 +44,37 @@ const getTotalIncome = createAsyncThunk("getTotalIncome", async () => {
 			}
 		);
 		return response.data.total;
+	} catch (error) {
+		throw error;
+	}
+});
+
+const cancelRental = createAsyncThunk("rentals/cancelRental", async (id) => {
+	try {
+		const token = Cookies.get("userToken");
+		console.log(token);
+		const response = await axios.put(
+			`http://127.0.0.1:8000/api/rental/${id}/cancel`,
+			null,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		return response.data.rental;
+	} catch (error) {
+		throw error;
+	}
+});
+
+const updateStatuses = createAsyncThunk("updateStatuses", async () => {
+	try {
+		const response = await axios.get(
+			"http://127.0.0.1:8000/api/rental/update-status"
+		);
+		return null
 	} catch (error) {
 		throw error;
 	}
@@ -76,28 +106,47 @@ const rentalsSlice = createSlice({
 			})
 			.addCase(addRental.fulfilled, (state, action) => {
 				state.rentalsIsLoading = false;
-				state.rentals.push(action.payload); // make sure this is correct 
+				state.rentals.push(action.payload); // make sure this is correct
 				state.rentalsError = null;
 			})
 			.addCase(addRental.rejected, (state, action) => {
 				state.rentalsIsLoading = false;
 				state.rentalsError = action.error.message;
 			})
-		    .addCase(getTotalIncome.pending, (state) => {
-                state.rentalsIsLoading = true;
-                state.rentalsError = null;
+			.addCase(getTotalIncome.pending, (state) => {
+				state.rentalsIsLoading = true;
+				state.rentalsError = null;
 			})
-		    .addCase(getTotalIncome.fulfilled, (state, action) => {
-                state.rentalsIsLoading = false;
-                state.totalIncome = action.payload;
-                state.rentalsError = null;
+			.addCase(getTotalIncome.fulfilled, (state, action) => {
+				state.rentalsIsLoading = false;
+				state.totalIncome = action.payload;
+				state.rentalsError = null;
 			})
-		    .addCase(getTotalIncome.rejected, (state, action) => {
-                state.rentalsIsLoading = false;
-                state.rentalsError = action.error.message;
-            });
+			.addCase(getTotalIncome.rejected, (state, action) => {
+				state.rentalsIsLoading = false;
+				state.rentalsError = action.error.message;
+			})
+			.addCase(cancelRental.pending, (state) => {
+				state.rentalsIsLoading = true;
+				state.rentalsError = null;
+			})
+			.addCase(cancelRental.fulfilled, (state, action) => {
+				state.rentalsIsLoading = false;
+				const updatedRentals = state.rentals.map((rental) => {
+					if (rental.id === action.payload.id) {
+						return action.payload; 
+					}
+					return rental;
+				});
+				state.rentals = updatedRentals;
+				state.rentalsError = null;
+			})
+			.addCase(cancelRental.rejected, (state, action) => {
+				state.rentalsIsLoading = false;
+				state.rentalsError = action.error.message;
+			});
 	},
 });
 
-export { getRentals, addRental, getTotalIncome};
+export { getRentals, addRental, getTotalIncome, cancelRental, updateStatuses };
 export default rentalsSlice.reducer;

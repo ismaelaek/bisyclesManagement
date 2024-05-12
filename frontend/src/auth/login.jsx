@@ -40,7 +40,7 @@ const Login = () => {
                 navigate("/dashboard")
 			} else {
 				localStorage.setItem("user", JSON.stringify(user));
-				Cookies.set("UserToken", response.data.token, { expires: 7, secure: true });
+				Cookies.set("userToken", response.data.token, { expires: 7, secure: true });
                 message.success("Login Successful");
                 navigate("/home")
             }
