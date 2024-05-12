@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\BikeController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,12 +24,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::get('/me/user', [AuthController::class, 'me']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::post('/change-password', [PasswordController::class, 'changeUserPassword']);
 
 
 Route::prefix('/users')->middleware('auth:api')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::delete('/{user}', [UserController::class, 'destroy']);
-
+    Route::put('/edit/{id}', [UserController::class, 'update']);
 });
 
 Route::prefix('/bikes')->group(function () {

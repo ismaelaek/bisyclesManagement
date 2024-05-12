@@ -13,6 +13,7 @@ import Footer from "./Home/Footer";
 import UserProfile from "./components/userProfile";
 import "./App.css";
 import UserEdit from "./components/userEdit";
+import ChangePassword from "./components/changePassword";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
 				<Route path="/reserve/:id" element={<Reservation />} />
 				<Route path="/profile/:id" element={<UserProfile />} />
 				<Route path="/profile/:id/edit" element={<UserEdit />} />
+				<Route path="/profile/:id/edit/change-password" element={<ChangePassword />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>

@@ -16,6 +16,7 @@ import { Switch } from "antd";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { updateStatuses } from "../storage/rentalsSlice";
 import { useDispatch } from "react-redux";
+import Cookies from 'js-cookie';
 
 
 
@@ -31,7 +32,7 @@ function Navbar() {
 		}
 		setLoggedUser(user);
 	}, [navigate]);
-	
+
 	useEffect(() => {
         dispatch(updateStatuses());
     }, [dispatch]);
@@ -54,6 +55,7 @@ function Navbar() {
 		setAnchorElUser(null);
 	};
 	const handleLogout = () => {
+		Cookies.remove('userToken');
 		localStorage.removeItem("user");
 		navigate('/login');
 	};

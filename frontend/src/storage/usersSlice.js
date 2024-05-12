@@ -41,6 +41,32 @@ const deleteUser = createAsyncThunk("deleteUser", async (userId, thunkAPI) => {
 	}
 });
 
+const updateUser = createAsyncThunk(
+	"updateUser",
+	async (formData, thunkAPI) => {
+		try {
+			const { id, ...data } = formData; 
+			const token = Cookies.get("userToken");
+			const response = await axios.put(
+				`http://127.0.0.1:8000/api/users/${id}`,
+				data,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			message.success("Info updated successfully");
+			thunkAPI.dispatch(getUsers()); 
+			return response.data;
+		} catch (error) {
+			console.error("Error updating user:", error);
+			throw error;
+		}
+	}
+);
+
 const removeUser = (userId) => (dispatch, getState) => {
 	const { users } = getState().users;
 	const updatedUsers = users.filter((user) => user.id !== userId);
@@ -85,9 +111,21 @@ const UsersSlice = createSlice({
 			.addCase(deleteUser.rejected, (state, action) => {
 				state.usersIsLoading = false;
 				state.usersError = action.error.message;
+			})
+			.addCase(updateUser.pending, (state) => {
+				state.usersIsLoading = true;
+				state.usersError = null;
+			})
+			.addCase(updateUser.fulfilled, (state) => {
+				state.usersIsLoading = false;
+				state.usersError = null;
+			})
+			.addCase(updateUser.rejected, (state, action) => {
+				state.usersIsLoading = false;
+				state.usersError = action.error.message;
 			});
 	},
 });
 
-export { getUsers, deleteUser };
+export { getUsers, deleteUser, updateUser };
 export default UsersSlice.reducer;

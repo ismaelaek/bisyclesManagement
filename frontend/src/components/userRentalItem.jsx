@@ -36,7 +36,7 @@ const UserRentalItem = ({ userRental, bikes }) => {
 				</Link>
 				<Popconfirm
 					title="Are you sure you want to cancel this rental?"
-					visible={confirmCancel}
+					open={confirmCancel}
 					onConfirm={handleCancel}
 					onCancel={() => setConfirmCancel(false)}
 					okText="Yes"
