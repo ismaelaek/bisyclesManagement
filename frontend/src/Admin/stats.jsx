@@ -6,6 +6,7 @@ import { getUsers } from "../storage/usersSlice";
 import { getBikes } from "../storage/bikesSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTotalIncome } from "../storage/rentalsSlice";
+import Charts from "./chatrs";
 
 
 export default function Statistics() {
@@ -27,7 +28,7 @@ export default function Statistics() {
 		dispatch(getTotalIncome());
 	}, [dispatch]);
 	return (
-		<div className="p-3">
+		<div className="p-3 flex flex-col gap-3">
 			<div className=" flex gap-3 justify-between">
 				<div className="stats-card bg-red-400">
 					<div>
@@ -62,6 +63,7 @@ export default function Statistics() {
 					</div>
 				</div>
 			</div>
+			<Charts users={users} bikes={bikes} rentals={rentals} />
 		</div>
 	);
 }
